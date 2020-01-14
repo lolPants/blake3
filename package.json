@@ -1,12 +1,15 @@
 {
-  "name": "blake3",
+  "name": "blake3-neon",
   "version": "0.0.1",
   "description": "Native implementation of the blake3 hashing algorithm",
   "keywords": [
     "blake3",
     "crypto",
     "hash",
-    "hashing"
+    "hashing",
+    "native",
+    "neon",
+    "rust"
   ],
   "main": "./lib/index.js",
   "module": "./esm/index.js",
