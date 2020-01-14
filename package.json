@@ -29,16 +29,19 @@
     "check": "yarn run compile --noEmit",
     "lint": "tslint -c tslint.json 'src/**/*.ts'",
     "install": "yarn run build:native",
-    "prebuild": "rimraf lib esm",
+    "clean:js": "rimraf lib esm",
+    "clean:native": "neon clean",
+    "clean": "yarn run clean:js && yarn run clean:native",
+    "prebuild": "yarn run clean:js",
     "build:native": "node-pre-gyp install --fallback-to-build=false || neon build --release",
     "build:cjs": "ncc build ./src/index.ts -o lib -m",
     "build:esm": "yarn run compile --module ES6 --outDir esm",
-    "build": "yarn run build:cjs && yarn run build:esm",
+    "build": "yarn run build:cjs && yarn run build:esm && yarn run build:native",
     "compile": "tsc",
     "watch": "yarn run compile --watch",
     "dev": "yarn run watch  --sourceMap",
     "package": "node-pre-gyp package",
-    "upload-binary": "node-pre-gyp package && node-pre-gyp-github publish"
+    "upload-binary": "yarn run package && node-pre-gyp-github publish"
   },
   "repository": {
     "type": "git",
