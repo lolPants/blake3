@@ -21,7 +21,7 @@
     "native/index.node"
   ],
   "engines": {
-    "node": ">=10.0.0"
+    "node": "^12"
   },
   "scripts": {
     "prepublishOnly": "yarn run test && yarn run build",
