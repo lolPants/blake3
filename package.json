@@ -1,0 +1,70 @@
+{
+  "name": "blake3",
+  "version": "0.0.1",
+  "description": "Native implementation of the blake3 hashing algorithm",
+  "keywords": [
+    "blake3",
+    "crypto",
+    "hash",
+    "hashing"
+  ],
+  "main": "./lib/index.js",
+  "module": "./esm/index.js",
+  "types": "./lib/index.d.ts",
+  "sideEffects": false,
+  "files": [
+    "lib/**/*",
+    "esm/**/*",
+    "native/index.node"
+  ],
+  "engines": {
+    "node": ">=10.0.0"
+  },
+  "scripts": {
+    "prepublishOnly": "yarn run test && yarn run build",
+    "test": "yarn run check && yarn run lint",
+    "check": "yarn run compile --noEmit",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "install": "yarn run build:native",
+    "prebuild": "rimraf lib esm",
+    "build:native": "node-pre-gyp install --fallback-to-build=false || neon build --release",
+    "build:cjs": "ncc build ./src/index.ts -o lib -m",
+    "build:esm": "yarn run compile --module ES6 --outDir esm",
+    "build": "yarn run build:cjs && yarn run build:esm",
+    "compile": "tsc",
+    "watch": "yarn run compile --watch",
+    "dev": "yarn run watch  --sourceMap",
+    "package": "node-pre-gyp package",
+    "upload-binary": "node-pre-gyp package && node-pre-gyp-github publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lolPants/blake3.git"
+  },
+  "author": "Jack Baron <jackmbaron@gmail.com> (https://www.jackbaron.com)",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "@amilajack/node-pre-gyp": "amilajack/node-pre-gyp#neon-compat",
+    "neon-cli": "^0.3.3",
+    "node-pre-gyp-github": "^1.4.3"
+  },
+  "devDependencies": {
+    "@types/node": "^13.1.6",
+    "@zeit/ncc": "^0.21.0",
+    "prettier": "^1.19.1",
+    "rimraf": "^3.0.0",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.1.0",
+    "typescript": "^3.7.4"
+  },
+  "binary": {
+    "module_name": "index",
+    "host": "https://github.com/lolPants/blake3/releases/download/",
+    "remote_path": "{version}",
+    "package_name": "{node_abi}-{platform}-{arch}.tar.gz",
+    "module_path": "./native",
+    "pkg_path": "."
+  }
+}
