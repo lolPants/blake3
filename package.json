@@ -1,6 +1,6 @@
 {
   "name": "blake3-neon",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Native implementation of the blake3 hashing algorithm",
   "keywords": [
     "blake3",
