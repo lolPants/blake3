@@ -8,9 +8,10 @@ os:
   - windows
 
 language: node_js
-
 node_js:
-  - node
+  - 13
+  - 12
+  - 10
 
 cache:
   - yarn: true
